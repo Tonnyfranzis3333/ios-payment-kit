@@ -3,7 +3,7 @@
 import SwiftUI
 
 extension View {
-    func horizontalTest() -> some View{
+    public func horizontalTest() -> some View{
         HStack{
             Spacer()
             self
