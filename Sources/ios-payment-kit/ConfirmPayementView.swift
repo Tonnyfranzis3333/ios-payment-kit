@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 struct ConfirmPayementView: View {
-    let bundleIdentifier = "com.airpay.ios-payment-kit"
+    let bundleIdentifier = "com.airpay.AirpayPaymentSdk"
     @StateObject var viewModel = proceedViewModel()
     @State private var mobileNumber: String = ""
     @State private var isValidNumber: Bool = true
