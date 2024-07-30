@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 struct ConfirmPayementView: View {
-    let bundleIdentifier = "com.airpay.AirpayPaymentSdk"
+    let bundleIdentifier = "com.airpay.ios-payment-kit"
     @StateObject var viewModel = proceedViewModel()
     @State private var mobileNumber: String = ""
     @State private var isValidNumber: Bool = true
@@ -50,12 +50,9 @@ struct ConfirmPayementView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
-//                            Image(named: "back", bundleIdentifier: bundleIdentifier)
-//                                .resizable()
-//                                .frame(width: 15,height: 15)
-                            Image(systemName: "questionmark.circle")
+                            Image(named: "back", bundleIdentifier: bundleIdentifier)
                                 .resizable()
-                                .frame(width: 15, height: 15)
+                                .frame(width: 15,height: 15)
                         }
                     }
                     Spacer()
