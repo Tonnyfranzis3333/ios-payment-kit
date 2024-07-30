@@ -50,7 +50,7 @@ struct ConfirmPayementView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
-                            Image("back", bundle: .module)
+                            Image("arrow-right", bundle: .module)
                                 .resizable()
                                 .frame(width: 15, height: 15)
                         }
