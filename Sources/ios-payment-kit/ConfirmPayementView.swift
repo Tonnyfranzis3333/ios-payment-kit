@@ -50,13 +50,13 @@ struct ConfirmPayementView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
-                            Image(named: "back", bundleIdentifier: bundleIdentifier)
+                            Image("back", bundle: .module)
                                 .resizable()
-                                .frame(width: 15,height: 15)
+                                .frame(width: 15, height: 15)
                         }
                     }
                     Spacer()
-                    Image(named: "logo-airpay", bundleIdentifier: bundleIdentifier)
+                    Image("logo-airpay", bundle: .module)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 20)
