@@ -9,17 +9,21 @@ let package = Package(
         .iOS(.v16),
     ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "ios-payment-kit",
-            targets: ["ios-payment-kit"]),
+            targets: ["ios-payment-kit"]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.9.1"), // Specify the version you need
+        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.9.1"),
     ],
     targets: [
-            .target(
-                name: "ios-payment-kit",
-                dependencies: ["Alamofire"]),
-        ]
+        .target(
+            name: "ios-payment-kit",
+            dependencies: ["Alamofire"],
+            resources: [
+                .process("Assets.xcassets") // Include your Assets.xcassets catalog here
+            ]
+        ),
+    ]
 )
