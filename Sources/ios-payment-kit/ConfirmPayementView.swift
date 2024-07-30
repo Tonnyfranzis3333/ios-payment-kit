@@ -8,13 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
-public extension Bundle {
-    static var module: Bundle = {
-        Bundle(for: BundleFinder.self)
-    }()
-}
 
-private class BundleFinder {}
 struct ConfirmPayementView: View {
     @StateObject var viewModel = proceedViewModel()
     @State private var mobileNumber: String = ""
@@ -56,9 +50,12 @@ struct ConfirmPayementView: View {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
-                            Image("back", bundle: .module)
+//                            Image("back", bundle: .module)
+//                                .resizable()
+//                                .frame(width: 15,height: 15)
+                            Image(systemName: "questionmark.circle")
                                 .resizable()
-                                .frame(width: 15,height: 15)
+                                .frame(width: 15, height: 15)
                         }
                     }
                     Spacer()

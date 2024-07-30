@@ -22,7 +22,7 @@ let package = Package(
             name: "ios-payment-kit",
             dependencies: ["Alamofire"],
             resources: [
-                .process("Assets.xcassets") // Include your Assets.xcassets catalog here
+                .process("Media.xcassets") // Correct path to your assets catalog
             ]
         ),
     ]
