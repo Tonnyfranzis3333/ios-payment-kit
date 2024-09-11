@@ -44,7 +44,7 @@ struct ConfirmPayementView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             VStack(alignment: .leading) {
                 HStack {
                     Button(action: {
