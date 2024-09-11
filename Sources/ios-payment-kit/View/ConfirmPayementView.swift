@@ -148,10 +148,10 @@ struct ConfirmPayementView: View {
                                 }
                                 .padding(.leading, 20)
                             }
-                            .padding(.horizontal, 30)
+                            .padding(.horizontal, 10)
                         }
                     }
-                    .frame(width: 300, height: 100)
+                    .frame(width: UIScreen.main.bounds.width-40, height: 100)
                     
                     
                     Text(LocalizationManager.localizedString("Airtel Mobile Number", isSwahili: isSwahili)).font(.system(size: 15, weight: .regular))
