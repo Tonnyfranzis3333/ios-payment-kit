@@ -27,6 +27,7 @@ struct ConfirmPayementView: View {
     let environment : String
     let isSwahili : Bool
     let channel_partner:String
+    @State private var navigationPath = NavigationPath()
     // Updated init method to include navigationCallback and responseCallback
     init(order_id: String, merchant_id: String, first_name: String, last_name: String, amount: String, srNo: String,mobile:String,environment:String,isSwahili:Bool,channel_partner:String, navigationCallback: ((TransactionStatusModel) -> Void)?) {
         self.order_id = order_id
@@ -43,7 +44,7 @@ struct ConfirmPayementView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(alignment: .leading) {
                 HStack {
                     Button(action: {
@@ -185,13 +186,6 @@ struct ConfirmPayementView: View {
                             RoundedRectangle(cornerRadius: 10.0)
                                 .stroke(.black, lineWidth: 1.0))
                     }
-                    //                    TextField("Enter Mobile Number", text: $mobileNumber)
-                    //                        .keyboardType(.phonePad)
-                    //                        .onReceive(Just(mobileNumber)) { newMobileNumber in
-                    //                            if newMobileNumber.count > 9 {
-                    //                                mobileNumber = String(newMobileNumber.prefix(9))
-                    //                            }
-                    //                        }
                     CustomButtonWithLoader(buttonText: "\(LocalizationManager.localizedString("Proceed to Confirm", isSwahili: isSwahili))", action: {
                         validateMobileNumber(mobileNumber: mobileNumber)
                     }, buttonColor: isValidNumber ? Color("lightPrimary") : Color("#DCDCDC"), shouldDisable: false, showIndicator: $viewModel.isLoading)
@@ -200,14 +194,6 @@ struct ConfirmPayementView: View {
                 }.padding(.horizontal,20)
                 Spacer()
             }
-            .background(NavigationLink(
-                destination: TimerView(navigationCallback: $navigationCallback,isSwahili: isSwahili)
-                    .navigationBarHidden(true), // Replace "ConfirmationView()" with your actual confirmation view
-                isActive: $viewModel.isTimerViewActive,
-                label: {
-                    EmptyView() // EmptyView is used to create a link without any visible UI
-                })
-            )
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text(LocalizationManager.localizedString("Alert", isSwahili: isSwahili)),
@@ -221,6 +207,11 @@ struct ConfirmPayementView: View {
                     )
                 )
             }
+            .onChange(of: viewModel.isTimerViewActive) { isActive in
+                if isActive {
+                    navigationPath.append(TimerView(navigationCallback: $navigationCallback,isSwahili: isSwahili))
+                }
+            }
         }.onAppear{
             viewModel.merchantId = merchant_id
             viewModel.channel_partner = channel_partner
@@ -231,6 +222,7 @@ struct ConfirmPayementView: View {
                 viewModel.fetchBootConfig()
             }
         }
+        
         .navigationBarHidden(true)
     }
     // Function to validate mobile number

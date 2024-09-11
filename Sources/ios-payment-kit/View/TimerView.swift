@@ -7,7 +7,9 @@
 
 import Foundation
 import SwiftUI
-struct TimerView: View {
+struct TimerView: View,Hashable {
+    
+    
     @State private var timeRemaining = 300
     let totalTime = 300
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -42,15 +44,13 @@ struct TimerView: View {
                         .stroke(Color(red: 0.0/255, green: 97.0/255, blue: 168.0/255), lineWidth: 10)
                         .frame(width: 100, height: 100)
                         .rotationEffect(.degrees(-90))
-                        .animation(.linear)
-                    
+                        .animation(.linear, value: timeRemaining)
                     Circle()
                         .trim(from: 0, to: CGFloat(timeRemaining) / CGFloat(totalTime))
                         .stroke(Color.white, lineWidth: 10)
                         .frame(width: 130, height: 130)
                         .rotationEffect(.degrees(-90))
-                        .animation(.linear)
-                    
+                        .animation(.linear, value: timeRemaining)
                     ForEach(0..<60) { index in
                         Capsule()
                             .frame(width: 2, height: 15)
@@ -154,6 +154,15 @@ struct TimerView: View {
         let seconds = time % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
+    static func == (lhs: TimerView, rhs: TimerView) -> Bool {
+            // Define equality based on properties
+            return lhs.isSwahili == rhs.isSwahili
+        }
+
+        func hash(into hasher: inout Hasher) {
+            // Hash based on properties
+            hasher.combine(isSwahili)
+        }
 }
 
 
