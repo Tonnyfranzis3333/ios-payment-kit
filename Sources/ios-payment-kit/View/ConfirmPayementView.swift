@@ -44,7 +44,7 @@ struct ConfirmPayementView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack(alignment: .leading) {
                 HStack {
                     Button(action: {
@@ -194,6 +194,14 @@ struct ConfirmPayementView: View {
                 }.padding(.horizontal,20)
                 Spacer()
             }
+            .background(NavigationLink(
+                destination: TimerView(navigationCallback: $navigationCallback,isSwahili: isSwahili)
+                    .navigationBarHidden(true), // Replace "ConfirmationView()" with your actual confirmation view
+                isActive: $viewModel.isTimerViewActive,
+                label: {
+                    EmptyView() // EmptyView is used to create a link without any visible UI
+                })
+            )
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text(LocalizationManager.localizedString("Alert", isSwahili: isSwahili)),
@@ -207,11 +215,11 @@ struct ConfirmPayementView: View {
                     )
                 )
             }
-            .onChange(of: viewModel.isTimerViewActive) { isActive in
-                if isActive {
-                    navigationPath.append(TimerView(navigationCallback: $navigationCallback,isSwahili: isSwahili))
-                }
-            }
+//            .onChange(of: viewModel.isTimerViewActive) { isActive in
+//                if isActive {
+//                    navigationPath.append(TimerView(navigationCallback: $navigationCallback,isSwahili: isSwahili))
+//                }
+//            }
         }.onAppear{
             viewModel.merchantId = merchant_id
             viewModel.channel_partner = channel_partner

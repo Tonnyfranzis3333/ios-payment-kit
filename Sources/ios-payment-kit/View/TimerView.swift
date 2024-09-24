@@ -210,7 +210,6 @@ struct SuccessOrFailurePopup: View {
                 Text("\(LocalizationManager.localizedString("Your Payment of TSh", isSwahili: isSwahili)) \(amount) \(LocalizationManager.localizedString("has Failed", isSwahili: isSwahili))").font(.system(size: 17, weight: .regular)).padding(.bottom,20).padding(.horizontal,20).foregroundColor(.white)
             }
             if isSuccess {
-//                Text("Payment Successful Message").font(.system(size: 17, weight: .regular)).padding(.bottom,20).padding(.horizontal,20).foregroundColor(.white)
             } else {
                 Text((LocalizationManager.localizedString("Failed Reason: External Transactions Already Exist", isSwahili: isSwahili))).font(.system(size: 17, weight: .regular)).padding(.bottom,20).padding(.horizontal,20).foregroundColor(.white)
             }
