@@ -27,7 +27,7 @@ struct ConfirmPayementView: View {
     let environment : String
     let isSwahili : Bool
     let channel_partner:String
-    @State private var navigationPath = NavigationPath()
+//    @State private var navigationPath = NavigationPath()
     // Updated init method to include navigationCallback and responseCallback
     init(order_id: String, merchant_id: String, first_name: String, last_name: String, amount: String, srNo: String,mobile:String,environment:String,isSwahili:Bool,channel_partner:String, navigationCallback: ((TransactionStatusModel) -> Void)?) {
         self.order_id = order_id
