@@ -82,6 +82,7 @@ struct TimerView: View,Hashable {
                     let transactionStatusModel = TransactionStatusModel(cancelStatus: false, data: viewModel.transactionStatusModel?.data)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         navigationCallback?(transactionStatusModel)
+                        isTimerViewActive = false
                     }
                 }
                 .presentationDetents([.height(300)])
