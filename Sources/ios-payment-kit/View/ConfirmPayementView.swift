@@ -203,7 +203,7 @@ struct ConfirmPayementView: View {
 //                })
 //            )
             .fullScreenCover(isPresented: $viewModel.isTimerViewActive) {
-                TimerView(navigationCallback: $navigationCallback, isSwahili: isSwahili)
+                TimerView(isTimerViewActive: $viewModel.isTimerViewActive, navigationCallback: $navigationCallback, isSwahili: isSwahili)
                     .navigationBarHidden(true)
             }
 

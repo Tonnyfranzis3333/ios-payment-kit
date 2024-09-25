@@ -12,6 +12,7 @@ struct TimerView: View,Hashable {
     
     @State private var timeRemaining = 300
     let totalTime = 300
+    @Binding var isTimerViewActive: Bool
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Binding var navigationCallback: ((TransactionStatusModel) -> Void)?
     @State private var counter = 0
@@ -113,6 +114,7 @@ struct TimerView: View,Hashable {
                 performAction()
                 let transactionStatusModel = TransactionStatusModel(cancelStatus: false, data: viewModel.transactionStatusModel?.data)
                     navigationCallback?(transactionStatusModel)
+                isTimerViewActive = false
             }
             .presentationDetents([.height(300)])
         }
@@ -121,6 +123,7 @@ struct TimerView: View,Hashable {
                 let transactionStatusModel = TransactionStatusModel(cancelStatus: false, data: viewModel.transactionStatusModel?.data)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     navigationCallback?(transactionStatusModel)
+                    isTimerViewActive = false
                 }
                 
             }
