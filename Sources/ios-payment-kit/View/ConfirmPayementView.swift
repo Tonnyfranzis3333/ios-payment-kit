@@ -194,14 +194,19 @@ struct ConfirmPayementView: View {
                 }.padding(.horizontal,20)
                 Spacer()
             }
-            .background(NavigationLink(
-                destination: TimerView(navigationCallback: $navigationCallback,isSwahili: isSwahili)
-                    .navigationBarHidden(true), // Replace "ConfirmationView()" with your actual confirmation view
-                isActive: $viewModel.isTimerViewActive,
-                label: {
-                    EmptyView() // EmptyView is used to create a link without any visible UI
-                })
-            )
+//            .background(NavigationLink(
+//                destination: TimerView(navigationCallback: $navigationCallback,isSwahili: isSwahili)
+//                    .navigationBarHidden(true), // Replace "ConfirmationView()" with your actual confirmation view
+//                isActive: $viewModel.isTimerViewActive,
+//                label: {
+//                    EmptyView() // EmptyView is used to create a link without any visible UI
+//                })
+//            )
+            .fullScreenCover(isPresented: $viewModel.isTimerViewActive) {
+                TimerView(navigationCallback: $navigationCallback, isSwahili: isSwahili)
+                    .navigationBarHidden(true)
+            }
+
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text(LocalizationManager.localizedString("Alert", isSwahili: isSwahili)),
