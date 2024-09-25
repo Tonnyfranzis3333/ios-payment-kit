@@ -77,7 +77,7 @@ struct TimerView: View,Hashable {
                     Text((LocalizationManager.localizedString("Transaction Successfull", isSwahili: isSwahili))).font(.system(size: 20, weight: .bold)).padding(.horizontal,20)
                     Spacer()
                 }
-                SuccessOrFailurePopup(isSuccess: $viewModel.apiResponseSuccess,amount: $viewModel.amount,isSwahili : isSwahili){
+                SuccessOrFailurePopup(isSuccess: $viewModel.apiResponseSuccess, isTimerViewActive: $isTimerViewActive,amount: $viewModel.amount,isSwahili : isSwahili){
                     
                     let transactionStatusModel = TransactionStatusModel(cancelStatus: false, data: viewModel.transactionStatusModel?.data)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -110,20 +110,18 @@ struct TimerView: View,Hashable {
             performAction()
         }
         .sheet(isPresented: $isBottomSheetExpanded) {
-            CancelPopup(isBottomSheetExpanded: $isBottomSheetExpanded,isSwahili:isSwahili){
+            CancelPopup(isBottomSheetExpanded: $isBottomSheetExpanded, isTimerViewActive: $isTimerViewActive,isSwahili:isSwahili){
                 performAction()
                 let transactionStatusModel = TransactionStatusModel(cancelStatus: false, data: viewModel.transactionStatusModel?.data)
                     navigationCallback?(transactionStatusModel)
-                isTimerViewActive = false
             }
             .presentationDetents([.height(300)])
         }
         .sheet(isPresented: $viewModel.showPopup) {
-            SuccessOrFailurePopup(isSuccess: $viewModel.apiResponseSuccess,amount: $viewModel.amount){
+            SuccessOrFailurePopup(isSuccess: $viewModel.apiResponseSuccess, isTimerViewActive: $isTimerViewActive,amount: $viewModel.amount){
                 let transactionStatusModel = TransactionStatusModel(cancelStatus: false, data: viewModel.transactionStatusModel?.data)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     navigationCallback?(transactionStatusModel)
-                    isTimerViewActive = false
                 }
                 
             }
@@ -171,6 +169,7 @@ struct TimerView: View,Hashable {
 
 struct CancelPopup: View {
     @Binding var isBottomSheetExpanded: Bool
+    @Binding var isTimerViewActive: Bool
     @StateObject var viewModel = proceedViewModel()
     var isSwahili = Bool()
     var onCancel: () -> Void
@@ -183,6 +182,7 @@ struct CancelPopup: View {
             CustomButton(title: "\(LocalizationManager.localizedString("Yes, Cancel", isSwahili: isSwahili))") {
                 print("Button tapped!")
                 isBottomSheetExpanded.toggle()
+                isTimerViewActive = false
                 onCancel()
             }.padding(.horizontal,20)
             CustomButtonWhite(title: (LocalizationManager.localizedString("No", isSwahili: isSwahili))) {
@@ -197,6 +197,7 @@ struct CancelPopup: View {
 
 struct SuccessOrFailurePopup: View {
     @Binding var isSuccess: Bool
+    @Binding var isTimerViewActive: Bool
     @Binding var amount: String
     var isSwahili = Bool()
     var onCancel: () -> Void
@@ -226,6 +227,7 @@ struct SuccessOrFailurePopup: View {
         .padding(.horizontal, 20)
         .onAppear(){
             onCancel()
+            isTimerViewActive = false
         }
     }
 }
